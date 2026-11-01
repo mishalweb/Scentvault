@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: scentvault
+      POSTGRES_PASSWORD: scentvault_dev_password
+      POSTGRES_DB: scentvault
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - scentvault_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U scentvault -d scentvault"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+volumes:
+  scentvault_pgdata:

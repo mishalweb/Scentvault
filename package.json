@@ -1,0 +1,32 @@
+{
+  "name": "scentvault",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/web",
+    "apps/api"
+  ],
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n API,WEB -c cyan,magenta \"npm run dev -w @scentvault/api\" \"npm run dev -w @scentvault/web\"",
+    "dev:api": "npm run dev -w @scentvault/api",
+    "dev:web": "npm run dev -w @scentvault/web",
+    "build": "npm run build -w @scentvault/api && npm run build -w @scentvault/web",
+    "typecheck": "npm run typecheck -w @scentvault/api && npm run typecheck -w @scentvault/web",
+    "db:generate": "npm run db:generate -w @scentvault/api",
+    "db:migrate": "npm run db:migrate -w @scentvault/api",
+    "db:dev": "npm run db:dev -w @scentvault/api",
+    "db:seed": "npm run db:seed -w @scentvault/api",
+    "db:status": "npm run db:status -w @scentvault/api",
+    "db:up": "docker compose up -d db",
+    "db:down": "docker compose down",
+    "setup:env": "node scripts/setup-env.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "test": "npm run test -w @scentvault/api"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}
